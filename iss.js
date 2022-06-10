@@ -28,13 +28,28 @@ const fetchCoordsByIP = function(ip, callback) {
     }
 
     const { latitude, longitude } = JSON.parse(body).data.location;
-  
     callback(null, {latitude, longitude});
+  });
+};
+
+fetchISSFlyOverTimes = function(coords, callback) {
+  request(`https://iss-pass.herokuapp.com/json/?lat=${coords.LATITUDE}&lon=${coords.LONGITUDE}`, (error, response, body) => {
+    if (error) {
+      callback(error, null);
+      return;
+    }
+    if (response.statusCode !== 200) {
+      const msg = `Status Code ${response.statusCode} when fetching data. Please try again!`;
+      callback(Error(msg), null);
+    }
+    const flyTimes = JSON.parse(body).response;
+    callback(null, flyTimes);
   });
 };
 
 
 module.exports = { 
   fetchCoordsByIP,
-  fetchMyIP, 
+  fetchMyIP,
+  fetchISSFlyOverTimes,
 };

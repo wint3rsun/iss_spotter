@@ -1,5 +1,5 @@
-const { fetchMyIP, fetchCoordsByIP } = require('./iss');
-const {IP, } = require('./sensitive');
+const { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes } = require('./iss');
+const {IP, LATITUDE, LONGITUDE } = require('./sensitive');
 
 // fetchMyIP((error, ip) => {
 //   if (error) {
@@ -15,4 +15,12 @@ const {IP, } = require('./sensitive');
 //     return;
 //   }
 //   console.log("SUCCESS! geoCoord is: ", coordinates);
+// });
+
+// fetchISSFlyOverTimes ({ LATITUDE, LONGITUDE }, (error, data) => {
+//   if (error) {
+//     console.log("Try again girlie~ ", error);
+//     return;
+//   }
+//   console.log("Success the fly times are: ", data);
 // });
