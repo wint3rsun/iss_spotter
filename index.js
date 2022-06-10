@@ -1,5 +1,5 @@
-const { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes } = require('./iss');
-const {IP, LATITUDE, LONGITUDE } = require('./sensitive');
+const { nextISSTimesForMyLocation } = require('./iss');
+//const {IP, LATITUDE, LONGITUDE } = require('./sensitive');
 
 // fetchMyIP((error, ip) => {
 //   if (error) {
@@ -24,3 +24,25 @@ const {IP, LATITUDE, LONGITUDE } = require('./sensitive');
 //   }
 //   console.log("Success the fly times are: ", data);
 // });
+
+const printPassTimes = function(passTimes) {
+  for (const pass of passTimes) {
+    const datetime = new Date(0);
+    datetime.setUTCSeconds(pass.risetime);
+
+    const duration = pass.duration;
+
+    console.log(`Next pass at ${datetime} for ${duration} seconds!`);
+  }
+};
+
+nextISSTimesForMyLocation((error, nextFlyTimes)=> {
+  if (error) {
+    console.log("Error Alert! Details Below.\n", error);
+    return;
+  }
+
+  console.log("The next fly times at your IP address are:");
+  printPassTimes(nextFlyTimes);
+
+});
