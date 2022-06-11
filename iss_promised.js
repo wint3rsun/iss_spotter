@@ -10,7 +10,7 @@ const fetchCoordsByIP = (body) => {
 };
 
 const fetchISSFlyOverTimes = (body) => {
-  const { latitude, longitude } = JSON.parse(body);
+  const { latitude, longitude } = JSON.parse(body).data.location;
   return request(`https://iss-pass.herokuapp.com/json/?lat=${latitude}&lon=${longitude}`)
 };
 
